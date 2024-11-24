@@ -24,8 +24,8 @@ def index(request):
     return Response({
         "message": "Welcome to the Virtual Machine Class API!",
         "endpoints": {
-            "POST /create-class/": "Create a new virtual machine class.",
-            "GET /get-classes/": "Retrieve all virtual machine classes.",
+            "POST /api/classes/": "Create a new virtual machine class.",
+            "GET /api/classes/list": "Retrieve all virtual machine classes.",
         }
     })
 # Create your views here.
