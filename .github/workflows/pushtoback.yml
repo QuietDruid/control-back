@@ -57,12 +57,12 @@ jobs:
         # ssh $SERVER_USER@$SERVER_HOST "sudo mkdir -p /var/www/djangoproj"
         # Backup existing project (optional but recommended)
         # ssh $SERVER_USER@$SERVER_HOST "sudo cp -r /var/www/djangoproj /var/www/djangoproj_backup_$(date +%Y%m%d_%H%M%S)"
-        # Remove existing project files
-        # ssh $SERVER_USER@$SERVER_HOST "rm -rf /var/www/djangoproj/*"
         # Copy new project files
         # scp -r ./* $SERVER_USER@$SERVER_HOST:/var/www/djangoproj/
         # Set correct permissions
-        # ssh $SERVER_USER@$SERVER_HOST "sudo chown -R $SERVER_USER:$SERVER_USER /var/www/djangoproj"
+        ssh $SERVER_USER@$SERVER_HOST "sudo chown -R $SERVER_USER:$SERVER_USER /var/www/djangoproj"
+        # Remove existing project files
+        ssh $SERVER_USER@$SERVER_HOST "sudo rm -rf /var/www/djangoproj/*"
         
         # Copy new project files to user's home directory
         scp -r ./* $SERVER_USER@$SERVER_HOST:~/djangoproj_temp/
