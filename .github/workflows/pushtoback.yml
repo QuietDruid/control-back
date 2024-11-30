@@ -53,31 +53,31 @@ jobs:
         SERVER_USER: ${{ secrets.SERVER_USER }}
       run: |
         # Create project directory if it doesn't exist
-        # ssh $SERVER_USER@$SERVER_HOST "sudo mkdir -p /var/www/djangoproject"
+        # ssh $SERVER_USER@$SERVER_HOST "sudo mkdir -p /var/www/djangoproj"
         
         # Backup existing project (optional but recommended)
-        ssh $SERVER_USER@$SERVER_HOST "cp -r /var/www/djangoproject /var/www/djangoproject_backup_$(date +%Y%m%d_%H%M%S)"
+        ssh $SERVER_USER@$SERVER_HOST "cp -r /var/www/djangoproj /var/www/djangoproj_backup_$(date +%Y%m%d_%H%M%S)"
         
         # Remove existing project files
-        # ssh $SERVER_USER@$SERVER_HOST "rm -rf /var/www/djangoproject/*"
+        # ssh $SERVER_USER@$SERVER_HOST "rm -rf /var/www/djangoproj/*"
         
         # Copy new project files
-        scp -r ./* $SERVER_USER@$SERVER_HOST:/var/www/djangoproject/
+        scp -r ./* $SERVER_USER@$SERVER_HOST:/var/www/djangoproj/
         
         # Set correct permissions
-        # ssh $SERVER_USER@$SERVER_HOST "sudo chown -R $SERVER_USER:$SERVER_USER /var/www/djangoproject"
+        # ssh $SERVER_USER@$SERVER_HOST "sudo chown -R $SERVER_USER:$SERVER_USER /var/www/djangoproj"
         
         # Create and activate virtual environment
-        ssh $SERVER_USER@$SERVER_HOST "cd /var/www/djangoproject && python3 -m venv venv"
+        ssh $SERVER_USER@$SERVER_HOST "cd /var/www/djangoproj && python3 -m venv venv"
         
         # Install dependencies
-        ssh $SERVER_USER@$SERVER_HOST "cd /var/www/djangoproject && source venv/bin/activate && pip install -r requirements.txt"
+        ssh $SERVER_USER@$SERVER_HOST "cd /var/www/djangoproj && source venv/bin/activate && pip install -r requirements.txt"
         
         # Run database migrations
-        ssh $SERVER_USER@$SERVER_HOST "cd /var/www/djangoproject && source venv/bin/activate && python manage.py migrate"
+        ssh $SERVER_USER@$SERVER_HOST "cd /var/www/djangoproj && source venv/bin/activate && python manage.py migrate"
         
         # Collect static files
-        ssh $SERVER_USER@$SERVER_HOST "cd /var/www/djangoproject && source venv/bin/activate && python manage.py collectstatic --noinput"
+        ssh $SERVER_USER@$SERVER_HOST "cd /var/www/djangoproj && source venv/bin/activate && python manage.py collectstatic --noinput"
         
         # Restart services
         ssh $SERVER_USER@$SERVER_HOST "sudo systemctl restart gunicorn"
