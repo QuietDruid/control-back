@@ -60,7 +60,7 @@ jobs:
         # Copy new project files
         # scp -r ./* $SERVER_USER@$SERVER_HOST:/var/www/djangoproj/
         # Set correct permissions
-        ssh $SERVER_USER@$SERVER_HOST "sudo chown -R $SERVER_USER:$SERVER_USER /var/www/djangoproj/controlback"
+        ssh $SERVER_USER@$SERVER_HOST "sudo chown -R $SERVER_USER:$SERVER_USER /var/www/djangoproj"
         # Remove existing project files
         ssh $SERVER_USER@$SERVER_HOST "rm -rf /var/www/djangoproj/*"
         
