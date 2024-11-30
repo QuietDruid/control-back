@@ -27,5 +27,5 @@ def index(request):
             "POST /api/classes/": "Create a new virtual machine class.",
             "GET /api/classes/list": "Retrieve all virtual machine classes.",
         }
-    })
+    } status=status.HTTP_200_OK)
 # Create your views here.

@@ -29,7 +29,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 CORS_ALLOWED_ORIGINS = [
-    'http://127.0.0.1:5173',        
+    'http://127.0.0.1:5173',
+    'http://10.200.10.50:5173'        
 ]
 
 # Application definition
