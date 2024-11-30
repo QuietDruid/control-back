@@ -32,6 +32,8 @@ jobs:
         # flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
     
     - name: Run tests
+      env:
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
       run: |
         source venv/bin/activate
         python3 controlbackend/manage.py test
