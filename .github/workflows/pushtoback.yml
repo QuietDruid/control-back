@@ -56,7 +56,7 @@ jobs:
         # ssh $SERVER_USER@$SERVER_HOST "sudo mkdir -p /var/www/djangoproj"
         
         # Backup existing project (optional but recommended)
-        ssh $SERVER_USER@$SERVER_HOST "cp -r /var/www/djangoproj /var/www/djangoproj_backup_$(date +%Y%m%d_%H%M%S)"
+        ssh $SERVER_USER@$SERVER_HOST "sudo cp -r /var/www/djangoproj /var/www/djangoproj_backup_$(date +%Y%m%d_%H%M%S)"
         
         # Remove existing project files
         # ssh $SERVER_USER@$SERVER_HOST "rm -rf /var/www/djangoproj/*"
