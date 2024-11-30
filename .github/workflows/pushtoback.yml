@@ -71,6 +71,11 @@ jobs:
       env:
         SERVER_HOST: ${{ secrets.SERVER_HOST }}
         SERVER_USER: ${{ secrets.SERVER_USER }}
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        DB_NAME: ${{ secrets.DB_NAME }}
+        DB_USER: ${{ secrets.DB_USER }}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        DB_HOST: ${{ secrets.DB_HOST }}
       run: |
         # Move project files to the target directory
         ssh $SERVER_USER@$SERVER_HOST "cp -r ~/djangoproj_temp/* /var/www/djangoproj/ && rm -rf ~/djangoproj_temp"
