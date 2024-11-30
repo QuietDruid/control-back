@@ -73,7 +73,7 @@ jobs:
         SERVER_USER: ${{ secrets.SERVER_USER }}
       run: |
         # Move project files to the target directory
-        ssh $SERVER_USER@$SERVER_HOST "sudo cp -r ~/djangoproj_temp/* /var/www/djangoproj/ && sudo rm -rf ~/djangoproj_temp"
+        ssh $SERVER_USER@$SERVER_HOST "cp -r ~/djangoproj_temp/* /var/www/djangoproj/ && rm -rf ~/djangoproj_temp"
 
         # Create and activate virtual environment
         ssh $SERVER_USER@$SERVER_HOST "cd /var/www/djangoproj && python3 -m venv venv"
