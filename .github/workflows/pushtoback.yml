@@ -104,10 +104,10 @@ jobs:
         
         ssh $SERVER_USER@$SERVER_HOST "cd /var/www/djangoproj/controlbackend && (
           echo 'SECRET_KEY=$SECRET_KEY'
-          echo 'DB_HOST=$DATABASE_URL'
-          echo 'DB_NAME=$DATABASE_NAME'
-          echo 'DB_USER=$DATABASE_USER'
-          echo 'DB_PASSWORD=$DATABASE_PASSWORD'
+          echo 'DB_HOST=$DB_HOST'
+          echo 'DB_NAME=$DB_NAME'
+          echo 'DB_USER=$DB_USER'
+          echo 'DB_PASSWORD=$DB_PASSWORD'
         ) > .env"
 
         # Run database migrations
