@@ -1,6 +1,11 @@
 from django.db import models
 
 class VirtualMachineClass(models.Model):
+    created_by = models.ForeignKey(
+        'auth.User',
+        related_name='vm_classes',
+        on_delete=models.CASCADE
+    )
     class_name = models.CharField(max_length=255)
     ubuntu_version = models.CharField(max_length=10)
     vm_type = models.CharField(max_length=10)  # m1, m2, m3, m4

@@ -1,6 +1,8 @@
 from rest_framework import status
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+
 from .serializers import VirtualMachineClassSerializer
 from .models import VirtualMachineClass
 
@@ -28,4 +30,13 @@ def index(request):
             "GET /api/classes/list": "Retrieve all virtual machine classes.",
         }
     } status=status.HTTP_200_OK)
-# Create your views here.
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def create_class(request):
+    serializer = VirtualMachineClassSerializer(data=request.data)
+    if serializer.is_valid():
+        # Associate the class with the authenticated user
+        serializer.save(created_by=request.user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
