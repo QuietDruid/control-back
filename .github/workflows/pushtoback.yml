@@ -48,7 +48,7 @@ jobs:
         # pip install bandit
         # bandit -r . -f custom
     
-    - name: Deploy to Production Server
+    - name: Copying to Production Server
       env:
         SERVER_HOST: ${{ secrets.SERVER_HOST }}
         SERVER_USER: ${{ secrets.SERVER_USER }}
@@ -67,6 +67,11 @@ jobs:
         # Copy new project files to user's home directory
         scp -r ./* $SERVER_USER@$SERVER_HOST:~/djangoproj_temp/
 
+    - name: Deploying to Production Server
+      env:
+        SERVER_HOST: ${{ secrets.SERVER_HOST }}
+        SERVER_USER: ${{ secrets.SERVER_USER }}
+      run: |
         # Move project files to the target directory
         ssh $SERVER_USER@$SERVER_HOST "sudo cp -r ~/djangoproj_temp/* /var/www/djangoproj/ && sudo rm -rf ~/djangoproj_temp"
 
