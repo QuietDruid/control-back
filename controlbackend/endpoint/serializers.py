@@ -1,20 +1,22 @@
+# serializers.py
 from rest_framework import serializers
 from .models import VirtualMachineClass, Student
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ['name', 'email']
+        fields = ['id', 'name', 'email']  # Added id for clarity
 
 class VirtualMachineClassSerializer(serializers.ModelSerializer):
-    roster = StudentSerializer(many=True, source='students')
-
+    students = StudentSerializer(many=True, read_only=True)
+    
     class Meta:
         model = VirtualMachineClass
-        fields = ['id', 'class_name', 'ubuntu_version', 'vm_type', 'roster']
+        fields = ['id', 'class_name', 'ubuntu_version', 'vm_type', 'created_at', 'students']
 
     def create(self, validated_data):
-        students_data = validated_data.pop('students')
+        # Optional: Handle nested creation if needed
+        students_data = self.context.get('view').request.data.get('students', [])
         vm_class = VirtualMachineClass.objects.create(**validated_data)
         
         for student_data in students_data:
