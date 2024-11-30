@@ -1,2 +1,2 @@
 controlbackend/.env
-controlbackend/staticfiles
+controlbackend/staticfiles/*
