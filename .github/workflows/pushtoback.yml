@@ -98,6 +98,12 @@ jobs:
           source venv/bin/activate
           pip install -r requirements.txt
         EOF
+
+        ssh $SERVER_USER@$SERVER_HOST "
+          mkdir -p /var/www/djangoproj/run
+          sudo chown $SERVER_USER:www-data /var/www/djangoproj/run
+          sudo chmod 770 /var/www/djangoproj/run
+        "
         
         # Install dependencies
         # ssh $SERVER_USER@$SERVER_HOST "cd /var/www/djangoproj && source venv/bin/activate && pip install -r requirements.txt"
