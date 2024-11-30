@@ -54,19 +54,21 @@ jobs:
       run: |
         # Create project directory if it doesn't exist
         # ssh $SERVER_USER@$SERVER_HOST "sudo mkdir -p /var/www/djangoproj"
-        
         # Backup existing project (optional but recommended)
-        ssh $SERVER_USER@$SERVER_HOST "sudo cp -r /var/www/djangoproj /var/www/djangoproj_backup_$(date +%Y%m%d_%H%M%S)"
-        
+        # ssh $SERVER_USER@$SERVER_HOST "sudo cp -r /var/www/djangoproj /var/www/djangoproj_backup_$(date +%Y%m%d_%H%M%S)"
         # Remove existing project files
         # ssh $SERVER_USER@$SERVER_HOST "rm -rf /var/www/djangoproj/*"
-        
         # Copy new project files
-        scp -r ./* $SERVER_USER@$SERVER_HOST:/var/www/djangoproj/
-        
+        # scp -r ./* $SERVER_USER@$SERVER_HOST:/var/www/djangoproj/
         # Set correct permissions
         # ssh $SERVER_USER@$SERVER_HOST "sudo chown -R $SERVER_USER:$SERVER_USER /var/www/djangoproj"
         
+        # Copy new project files to user's home directory
+        scp -r ./* $SERVER_USER@$SERVER_HOST:~/djangoproj_temp/
+
+        # Move project files to the target directory
+        ssh $SERVER_USER@$SERVER_HOST "sudo cp -r ~/djangoproj_temp/* /var/www/djangoproj/ && sudo rm -rf ~/djangoproj_temp"
+
         # Create and activate virtual environment
         ssh $SERVER_USER@$SERVER_HOST "cd /var/www/djangoproj && python3 -m venv venv"
         
