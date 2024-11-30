@@ -98,10 +98,10 @@ jobs:
         # ssh $SERVER_USER@$SERVER_HOST "cd /var/www/djangoproj && source venv/bin/activate && pip install -r requirements.txt"
         
         # Run database migrations
-        ssh $SERVER_USER@$SERVER_HOST "cd /var/www/djangoproj && source venv/bin/activate && python manage.py migrate"
+        ssh $SERVER_USER@$SERVER_HOST "cd /var/www/djangoproj && source venv/bin/activate && python controlbackend/manage.py migrate"
         
         # Collect static files
-        ssh $SERVER_USER@$SERVER_HOST "cd /var/www/djangoproj && source venv/bin/activate && python manage.py collectstatic --noinput"
+        ssh $SERVER_USER@$SERVER_HOST "cd /var/www/djangoproj && source venv/bin/activate && python controlbackend/manage.py collectstatic --noinput"
         
         # Restart services
         ssh $SERVER_USER@$SERVER_HOST "sudo systemctl restart gunicorn"
