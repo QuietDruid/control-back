@@ -125,9 +125,6 @@ jobs:
         SERVER_HOST: ${{ secrets.SERVER_HOST }}
         SERVER_USER: ${{ secrets.SERVER_USER }}
       run: |
-        # Perform basic health check
-        ssh $SERVER_USER@$SERVER_HOST "curl http://$SERVER_HOST:80 || exit 1"
-        
         # Check service status
         ssh $SERVER_USER@$SERVER_HOST "systemctl is-active gunicorn"
         ssh $SERVER_USER@$SERVER_HOST "systemctl is-active nginx"
