@@ -53,7 +53,7 @@ jobs:
         SERVER_USER: ${{ secrets.SERVER_USER }}
       run: |
         # Create project directory if it doesn't exist
-        ssh $SERVER_USER@$SERVER_HOST "mkdir -p /var/www/djangoproject"
+        # ssh $SERVER_USER@$SERVER_HOST "sudo mkdir -p /var/www/djangoproject"
         
         # Backup existing project (optional but recommended)
         ssh $SERVER_USER@$SERVER_HOST "cp -r /var/www/djangoproject /var/www/djangoproject_backup_$(date +%Y%m%d_%H%M%S)"
