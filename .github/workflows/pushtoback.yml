@@ -76,10 +76,26 @@ jobs:
         ssh $SERVER_USER@$SERVER_HOST "cp -r ~/djangoproj_temp/* /var/www/djangoproj/ && rm -rf ~/djangoproj_temp"
 
         # Create and activate virtual environment
-        ssh $SERVER_USER@$SERVER_HOST "cd /var/www/djangoproj && python3 -m venv venv"
+        ssh $SERVER_USER@$SERVER_HOST << 'EOF'
+          # Create virtual environment
+          cd /var/www/djangoproj
+          python3 -m venv venv
+
+          # Ensure virtual environment was created
+          if [ -d "venv" ]; then
+            echo "Virtual environment created successfully."
+          else
+            echo "Failed to create virtual environment."
+            exit 1
+          fi
+
+          # Install dependencies
+          source venv/bin/activate
+          pip install -r requirements.txt
+        EOF
         
         # Install dependencies
-        ssh $SERVER_USER@$SERVER_HOST "cd /var/www/djangoproj && source venv/bin/activate && pip install -r requirements.txt"
+        # ssh $SERVER_USER@$SERVER_HOST "cd /var/www/djangoproj && source venv/bin/activate && pip install -r requirements.txt"
         
         # Run database migrations
         ssh $SERVER_USER@$SERVER_HOST "cd /var/www/djangoproj && source venv/bin/activate && python manage.py migrate"
