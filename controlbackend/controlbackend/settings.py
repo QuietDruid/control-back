@@ -35,8 +35,14 @@ ALLOWED_HOSTS = [
 
 CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1',
-    'http://10.200.10.51',
+    'http://10.200.20.51',
     'http://localhost',        
+]
+
+SECURE_CSP_CONNECT_SRC = [
+    "'self'",
+    'http://10.200.20.51',
+    'http://localhost',
 ]
 
 # Application definition
