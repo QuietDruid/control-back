@@ -42,7 +42,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1',
     'https://10.200.20.51',
     'http://localhost',
-    'https:/professor.rodriguezjr.org'        
+    'https://professor.rodriguezjr.org'        
 ]
 
 SECURE_CSP_CONNECT_SRC = [
