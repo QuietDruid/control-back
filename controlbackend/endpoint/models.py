@@ -2,9 +2,11 @@ from django.db import models
 
 class VirtualMachineClass(models.Model):
     created_by = models.ForeignKey(
-        'auth.User',
-        related_name='vm_classes',
-        on_delete=models.CASCADE
+        'auth.User', 
+        related_name='vm_classes', 
+        on_delete=models.CASCADE,
+        null=True,  # Allow null values
+        blank=True  # Optional in forms
     )
     class_name = models.CharField(max_length=255)
     ubuntu_version = models.CharField(max_length=10)
