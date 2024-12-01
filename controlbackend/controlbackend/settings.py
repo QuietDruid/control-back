@@ -35,14 +35,33 @@ ALLOWED_HOSTS = [
     '10.200.10.50',
     'localhost',
     '10.200.20.51',
-    'professor.rodriguezjr.org'
+    'professor.rodriguezjr.org',
 ]
 
 CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1',
     'https://10.200.20.51',
     'http://localhost',
-    'https://professor.rodriguezjr.org'        
+    'https://professor.rodriguezjr.org',    
+]
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
 ]
 
 SECURE_CSP_CONNECT_SRC = [
