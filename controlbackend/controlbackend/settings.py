@@ -34,18 +34,20 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     '10.200.10.50',
     'localhost',
-    '10.200.20.51'
+    '10.200.20.51',
+    'professor.rodriguezjr.org'
 ]
 
 CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1',
-    'http://10.200.20.51',
-    'http://localhost',        
+    'https://10.200.20.51',
+    'http://localhost',
+    'https:/professor.rodriguezjr.org'        
 ]
 
 SECURE_CSP_CONNECT_SRC = [
     "'self'",
-    'http://10.200.20.51',
+    'https://10.200.20.51',
     'http://localhost',
 ]
 
