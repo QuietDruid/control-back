@@ -79,6 +79,7 @@ SECURE_CSP_CONNECT_SRC = [
 ]
 CSP_DEFAULT_SRC = [
     "'self'",
+    "*.tunnels.cloudflare.com",
 ]
 CSP_SCRIPT_SRC = [
     "'self'",
