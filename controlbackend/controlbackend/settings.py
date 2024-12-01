@@ -75,6 +75,17 @@ SECURE_CSP_CONNECT_SRC = [
     "'self'",
     'https://10.200.20.51',
     'http://localhost',
+    'https://professor.rodriguezjr.org',
+]
+CSP_DEFAULT_SRC = [
+    "'self'",
+]
+CSP_SCRIPT_SRC = [
+    "'self'",
+    'https://professor.rodriguezjr.org',
+    'https://10.200.10.50',
+    'http://localhost',
+    'http://10.200.20.51',
 ]
 
 # Application definition
