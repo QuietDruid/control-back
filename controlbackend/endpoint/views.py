@@ -5,6 +5,8 @@ from rest_framework.permissions import IsAuthenticated
 
 from rest_framework.permissions import AllowAny
 from django.contrib.auth.models import User
+from rest_framework import serializers
+from .serializers import UserSignupSerializer
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.exceptions import ValidationError
@@ -12,15 +14,8 @@ from rest_framework.exceptions import ValidationError
 from .serializers import VirtualMachineClassSerializer
 from .models import VirtualMachineClass
 
-@api_view(['POST'])
-def create_class(request):
-    serializer = VirtualMachineClassSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def get_classes(request):
     classes = VirtualMachineClass.objects.all()
     serializer = VirtualMachineClassSerializer(classes, many=True)
