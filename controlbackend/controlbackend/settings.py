@@ -38,6 +38,13 @@ ALLOWED_HOSTS = [
     'professor.rodriguezjr.org',
 ]
 
+CORS_ALLOW_CREDENTIALS = True  # Important for cookies/authentication
+CORS_ORIGIN_WHITELIST = [
+    'https://professor.rodriguezjr.org',
+    'https://10.200.20.51',
+    'http://localhost:3000'
+]
+
 CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1',
     'https://10.200.20.51',
