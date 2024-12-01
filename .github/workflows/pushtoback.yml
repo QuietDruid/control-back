@@ -112,6 +112,9 @@ jobs:
           echo 'DB_PASSWORD=$DB_PASSWORD'
         ) > .env"
 
+        # Run make database migrations
+        ssh $SERVER_USER@$SERVER_HOST "cd /var/www/djangoproj && source venv/bin/activate && python3 controlbackend/manage.py makemigrations"
+
         # Run database migrations
         ssh $SERVER_USER@$SERVER_HOST "cd /var/www/djangoproj && source venv/bin/activate && python3 controlbackend/manage.py migrate"
         
