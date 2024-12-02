@@ -123,20 +123,27 @@ def login(request):
     """
     email = request.data.get('email')
     password = request.data.get('password')
-
-    user = authenticate(email=email, password=password)
-
-    if user:
-        refresh = RefreshToken.for_user(user)
-        return Response({
-            'user_id': user.id,
-            'email': user.email,
-            'token': {
-                'refresh': str(refresh),
-                'access': str(refresh.access_token)
-            }
-        })
-    else:
+    try:
+        # Find user by email
+        user = User.objects.get(email=email)
+        
+        # Check password
+        if user.check_password(password):
+            refresh = RefreshToken.for_user(user)
+            return Response({
+                'user_id': user.id,
+                'email': user.email,
+                'token': {
+                    'refresh': str(refresh),
+                    'access': str(refresh.access_token)
+                }
+            })
+        else:
+            return Response({
+                'error': 'Invalid credentials'
+            }, status=status.HTTP_401_UNAUTHORIZED)
+    
+    except User.DoesNotExist:
         return Response({
             'error': 'Invalid credentials'
         }, status=status.HTTP_401_UNAUTHORIZED)
