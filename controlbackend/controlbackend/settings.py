@@ -42,7 +42,7 @@ CORS_ALLOW_CREDENTIALS = True  # Important for cookies/authentication
 CORS_ORIGIN_WHITELIST = [
     'https://professor.rodriguezjr.org',
     'https://10.200.20.51',
-    'http://localhost:3000'
+    'https://localhost:3000'
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -86,7 +86,7 @@ CSP_SCRIPT_SRC = [
     'https://professor.rodriguezjr.org',
     'https://10.200.10.50',
     'http://localhost',
-    'http://10.200.20.51',
+    'https://10.200.20.51',
 ]
 
 # Application definition
@@ -203,3 +203,40 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Logging
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': 'django_requests.log',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+    },
+}
