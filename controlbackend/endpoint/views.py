@@ -42,18 +42,104 @@ def create_class(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+# @api_view(['POST'])
+# @permission_classes([AllowAny])
+# def signup_view(request):
+#     serializer = UserSignupSerializer(data=request.data)
+#     if serializer.is_valid():
+#         user = serializer.save()
+#         return Response({
+#             'message': 'User created successfully',
+#             'username': user.username,
+#             'email': user.email
+#         }, status=status.HTTP_201_CREATED)
+#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 @api_view(['POST'])
 @permission_classes([AllowAny])
-def signup_view(request):
-    serializer = UserSignupSerializer(data=request.data)
-    if serializer.is_valid():
-        user = serializer.save()
+def signup(request):
+    """
+    User registration endpoint
+    """
+    try:
+        username = request.data.get('username')
+        email = request.data.get('email')
+        password = request.data.get('password')
+        confirm_password = request.data.get('confirm_password')
+
+        # Validate input
+        if not username or not email or not password:
+            raise ValidationError({
+                'error': 'Username, email, and password are required'
+            })
+
+        # Check if user already exists
+        if User.objects.filter(username=username).exists():
+            raise ValidationError({
+                'username': 'Username is already taken'
+            })
+
+        if User.objects.filter(email=email).exists():
+            raise ValidationError({
+                'email': 'Email is already registered'
+            })
+        if password != confirm_password:
+            raise ValidationError({
+                'password': 'Passwords do not match'
+            })
+
+        # Create user
+        user = User.objects.create_user(
+            username=username, 
+            email=email, 
+            password=password
+        )
+
+        # Generate JWT tokens
+        refresh = RefreshToken.for_user(user)
+
         return Response({
-            'message': 'User created successfully',
+            'user_id': user.id,
             'username': user.username,
-            'email': user.email
+            'email': user.email,
+            'token': {
+                'refresh': str(refresh),
+                'access': str(refresh.access_token)
+            }
         }, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    except ValidationError as e:
+        return Response(e.detail, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return Response({
+            'error': 'An unexpected error occurred'
+        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def login(request):
+    """
+    User login endpoint
+    """
+    username = request.data.get('username')
+    password = request.data.get('password')
+
+    user = authenticate(username=username, password=password)
+
+    if user:
+        refresh = RefreshToken.for_user(user)
+        return Response({
+            'user_id': user.id,
+            'username': user.username,
+            'token': {
+                'refresh': str(refresh),
+                'access': str(refresh.access_token)
+            }
+        })
+    else:
+        return Response({
+            'error': 'Invalid credentials'
+        }, status=status.HTTP_401_UNAUTHORIZED)
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
