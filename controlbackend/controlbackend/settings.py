@@ -35,7 +35,7 @@ ALLOWED_HOSTS = [
     '10.200.10.50',
     'localhost',
     '10.200.20.51',
-    '10.200.20.40',
+    '10.200.10.40',
     'professor.rodriguezjr.org',
 ]
 
