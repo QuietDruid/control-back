@@ -211,7 +211,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/var/django/debug.log',  # Ensure this path exists and is writable
+            'filename': '/var/log/django/debug.log',  # Ensure this path exists and is writable
             'formatter': 'verbose',
         },
     },
