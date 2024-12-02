@@ -121,16 +121,16 @@ def login(request):
     """
     User login endpoint
     """
-    username = request.data.get('username')
+    username = request.data.get('email')
     password = request.data.get('password')
 
-    user = authenticate(username=username, password=password)
+    user = authenticate(email=email, password=password)
 
     if user:
         refresh = RefreshToken.for_user(user)
         return Response({
             'user_id': user.id,
-            'username': user.username,
+            'email': user.email,
             'token': {
                 'refresh': str(refresh),
                 'access': str(refresh.access_token)
