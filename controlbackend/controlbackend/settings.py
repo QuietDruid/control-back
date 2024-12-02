@@ -37,6 +37,7 @@ ALLOWED_HOSTS = [
     '10.200.20.51',
     '10.200.10.40',
     'professor.rodriguezjr.org',
+    'backend.rodriguezjr.org',
 ]
 
 CORS_ALLOW_CREDENTIALS = True  # Important for cookies/authentication
@@ -44,7 +45,8 @@ CORS_ORIGIN_WHITELIST = [
     'https://professor.rodriguezjr.org',
     'https://10.200.20.51',
     'https://10.200.10.40',
-    'http://localhost:3000'
+    'http://localhost:3000',
+    'backend.rodriguezjr.org',
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -52,7 +54,8 @@ CORS_ALLOWED_ORIGINS = [
     'https://10.200.20.51',
     'https://10.200.10.40',
     'http://localhost',
-    'https://professor.rodriguezjr.org',    
+    'https://professor.rodriguezjr.org',
+    'https://backend.rodriguezjr.org',    
 ]
 CORS_ALLOW_METHODS = [
     'DELETE',
@@ -80,6 +83,7 @@ SECURE_CSP_CONNECT_SRC = [
     'https://10.200.10.40',
     'http://localhost',
     'https://professor.rodriguezjr.org',
+    'https://backend.rodriguezjr.org',
 ]
 CSP_DEFAULT_SRC = [
     "'self'",
@@ -88,6 +92,7 @@ CSP_DEFAULT_SRC = [
 CSP_SCRIPT_SRC = [
     "'self'",
     'https://professor.rodriguezjr.org',
+    'https://backend.rodriguezjr.org',
     'https://10.200.10.50',
     'https://10.200.10.40',
     'http://localhost',
