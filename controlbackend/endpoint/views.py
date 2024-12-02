@@ -121,7 +121,7 @@ def login(request):
     """
     User login endpoint
     """
-    username = request.data.get('email')
+    email = request.data.get('email')
     password = request.data.get('password')
 
     user = authenticate(email=email, password=password)
